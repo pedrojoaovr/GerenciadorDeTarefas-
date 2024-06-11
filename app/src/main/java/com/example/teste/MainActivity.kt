@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.addButton.setOnClickListener{
-            val intent = Intent(this, AdicionarNota::class.java)
+            val intent = Intent(this, AdicionarTarefa::class.java)
             startActivity(intent)
         }
     }

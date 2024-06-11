@@ -1,5 +1,6 @@
 package com.example.teste
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -7,16 +8,16 @@ import android.database.sqlite.SQLiteOpenHelper
 class NotaDataBaseHelper (context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
 
     companion object{
-        private const val DATABASE_NAME = "notesapp.db"
-        private const val DATABASE_VERSION = "notesapp.db"
-        private const val TABLE_NAME = "allnotes"
+        private const val DATABASE_NAME = "tarefaapp.db"
+        private const val DATABASE_VERSION = 1
+        private const val TABLE_NAME = "alltarefas"
         private const val COLUMN_ID = "id"
-        private const val COLUMN_TITLE = "title"
-        private const val COLUMN_CONTENT = "content"
+        private const val COLUMN_TITULO = "titulo"
+        private const val COLUMN_TAREFA = "tarefa"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTableQuery = "CREATE TABLE $TABLE_NAME ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_TITLE TEXT, $COLUMN_CONTENT TEXT)"
+        val createTableQuery = "CREATE TABLE $TABLE_NAME ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_TITULO TEXT, $COLUMN_TAREFA TEXT)"
         db?.execSQL(createTableQuery)
     }
 
@@ -26,9 +27,14 @@ class NotaDataBaseHelper (context: Context): SQLiteOpenHelper(context, DATABASE_
         onCreate(db)
     }
 
-    fun insertNote(note: Notas){
-        val db= writableDataBASE
-
+    fun insertTarefa(tarefa: Tarefa){
+        val db= writableDatabase
+        val values = ContentValues().apply{
+        put(COLUMN_TITULO, tarefa.titulo)
+            put(COLUMN_TAREFA, tarefa.tarefa)
+        }
+        db.insert(TABLE_NAME, null, values)
+        db.close()
     }
 
 
